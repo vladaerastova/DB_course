@@ -1,0 +1,43 @@
+{% extends 'library/admin_base.html' %}
+{% block content %}
+{% load filters %}
+<div id="add" style=""  class="container">
+    <h2>Edit Book</h2>
+    <form action="edit_book" method="POST" class="form-inline" style="height: auto;" enctype="multipart/form-data">{% csrf_token %}
+        <div style="text-align: right; margin-left: 20px; margin-top: 10px" class="col-md-4 add" >
+            <label for="authorid" style="font-size: 18px; margin-top: 4px; ">Author:</label><br>
+            <label for="genre" style="font-size: 18px; margin-top: 4px; ">Genre:</label><br>
+            <label for="name" style="font-size: 18px; margin-top: 4px">Name:</label><br>
+            <label for="year" style="font-size: 18px; margin-top: 4px">Year:</label><br>
+            <label for="description" style="font-size: 18px; margin-top: 4px" >Description:</label>
+            <label for="img" style="text-align:right;font-size: 18px; margin-top: 4px">Book cover:</label>
+            <label for="text" style="text-align:right;font-size: 18px; margin-top: 28px">Book pdf:</label>
+        </div>
+        <div style="text-align: left; margin-left: 10px; margin-top: 10px"class="col-md-5">
+            <select id="authorid" name="author_id" style="width: 200px;height: 30px; border-radius: 5px">
+                <option selected value='{{book.author|private:"_id"}}'>{{book.author.name}}</option>
+                {%  for author in authors %}
+                <option value="{{author.Id}}" >{{author.Name}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div style="text-align: left; margin-left: 10px; margin-top: 10px"class="col-md-5">
+            <select id="genre" name="genre" style="width: 200px;height: 30px; border-radius: 5px">
+                <option selected value='{{book.genre|private:"_id"}}'>{{book.genre.name}}</option>
+                {%  for genre in genres %}
+                <option value="{{genre.Id}}" >{{genre.Name}}</option>
+                {% endfor %}
+            </select>
+            <br>
+            <input required id="name" type="text" value="{{book.name}}"  name="name" style="width: 200px;height: 30px; border-radius: 5px;margin-top: 4px"><br>
+            <input required id="year" type="number" value="{{book.year}}"  name="year" style="width: 200px;height: 30px; border-radius: 5px;margin-top: 4px"><br>
+            <textarea required id="description" name="description" style="width: 200px;height: 30px; border-radius: 5px;margin-top: 4px">{{book.description}}</textarea><br/>
+            <input required id="img" value="{{book.img}}" type="file"  name="img" style="width: 300px;height: 30px; border-radius: 5px;margin-top: 4px"><br/>
+            <input id="text" type="file" name="text" style="width: 300px;height: 30px; border-radius: 5px;margin-top: 4px"><br/>
+        </div>
+        <div class="col-md-9" style="margin-top: 18px">
+            <button style="margin-left: 105%; margin-bottom: 10%" name="id" value='{{ book|private:"_id"}}' type="submit" class="btn btn-success">Edit</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

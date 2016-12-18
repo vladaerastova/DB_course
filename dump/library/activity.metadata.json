@@ -1,0 +1,1 @@
+{ "options" : { "create" : "activity" }, "indexes" : [ { "v" : 1, "key" : { "_id" : 1 }, "ns" : "library.activity", "name" : "_id_" } ] }

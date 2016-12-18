@@ -1,0 +1,64 @@
+{% extends 'library/base.html' %}
+{% block content %}
+
+<div style="text-align:center; width:100%; margin-top:-50px;" class="w3-container w3-brown">
+    <h2>Search</h2>
+  </div>
+<form  action="search" method="POST">{% csrf_token %}
+    <div style="width: 90%; margin-top:20px;display:inline-block;margin-left:150px;">
+        <div class="col-md-3 ">
+            <select class="w3-sand"  id="genre" name="genre" style="width: 200px;height: 30px; border-radius: 5px ">
+                <option  selected value='{{None}}'>Genre</option>
+                {%  for genre in genres %}
+                <option value="{{genre.Id}}" >{{genre.Name}}</option>
+                {% endfor %}
+            </select></div>
+        <div class="col-md-3"><select class="w3-sand" id="author" name="author" style="width: 200px;height: 30px; border-radius: 5px">
+            <option class="disable"  selected value='{{None}}'>Author</option>
+                {%  for author in authors %}
+                <option value="{{author.Id}}" >{{author.Name}}</option>
+                {% endfor %}
+            </select></div>
+        <div class="col-md-3"><input name="name"  type="text" class="form-control w3-sand" placeholder="Name"></div>
+            <button class="btn btn-default w3-send" type="submit">
+                <i class="glyphicon glyphicon-search"></i>
+            </button>
+    </div>
+</form>
+<div style="text-align:center margin-top:10px" class="container">
+    {% for i in books %}
+    <div  class="col-md-5 book">
+        <div class="col-xs-4">
+        <img src="{{i.Img}}" class="img-thumbnail" alt="Book cover"></div>
+        <div style="text-align: left;" class="col-xs-7">
+            <form style="margin-bottom:-20px;margin-top:30px;" action="book" method="POST">{% csrf_token %}
+            <a class="char">Name: </a>
+                <button style="font-size:17px;margin-top:-3px;padding:0px;" type="submit" name="book" value="{{i.Id}}" class="btn btn-link" >{{i.Name}}</button>
+            </form><br>
+        <a class="char">Genre: </a><a>{{i.Genre.Name}}</a><br>
+        <a class="char">Author: </a><a>{{i.Author.Name}}</a><br>
+        <a class="char">Year: </a><a>{{i.Year}}</a><br>
+        <a class="char">Date: </a><a>{{i.Date}}</a><br>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+<div  class="pagination row center-block">
+    <span  class="step-links">
+        <ul  class="pager">
+        {% if books.has_previous %}
+            <li ><a href="?page={{ books.previous_page_number }}">Previous</a></li>
+        {% endif %}
+
+        <span class="current">
+            Page {{ books.number }} of {{ books.paginator.num_pages }}
+        </span>
+
+        {% if books.has_next %}
+           <li><a  href="?page={{ books.next_page_number }}">Next</a></li>
+        {% endif %}
+            </ul>
+    </span>
+</div>
+{% endblock %}

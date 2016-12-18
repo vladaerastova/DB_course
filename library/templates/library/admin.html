@@ -1,0 +1,87 @@
+
+{% extends 'library/admin_base.html' %}
+{% block content %}
+<div style="display: flex; margin-left: 850px;">
+    <form action="dump" method="POST">{% csrf_token %}
+        <button type="submit" class="btn btn-success" >Dump</button>
+    </form>
+    <form action="restore" method="POST">{% csrf_token %}
+        <button type="submit" style="margin-left: 20%" class="btn btn-success" >Restore</button>
+    </form>
+</div>
+<form  action="admin" method="POST">{% csrf_token %}
+    <div style="width: 90%; margin-top:60px;display:inline-block;margin-left:150px;">
+        <div class="col-md-3 ">
+            <select class="w3-sand"  id="genre" name="genre" style="width: 200px;height: 30px; border-radius: 5px ">
+                <option  selected value='{{None}}'>Genre</option>
+                {%  for genre in genres %}
+                <option value="{{genre.Id}}" >{{genre.Name}}</option>
+                {% endfor %}
+            </select></div>
+        <div class="col-md-3"><select class="w3-sand" id="author" name="author" style="width: 200px;height: 30px; border-radius: 5px">
+            <option class="disable"  selected value='{{None}}'>Author</option>
+                {%  for author in authors %}
+                <option value="{{author.Id}}" >{{author.Name}}</option>
+                {% endfor %}
+            </select></div>
+        <div class="col-md-3"><input name="name"  type="text" class="form-control w3-sand" placeholder="Name"></div>
+            <button class="btn btn-default w3-send" type="submit">
+                <i class="glyphicon glyphicon-search"></i>
+            </button>
+    </div>
+</form>
+      <div class="row center-block">
+      <table class="table table-hover table-striped table-responsive">
+        <caption>
+            <h3 align="center">Books</h3>
+        </caption>
+        <thead>
+            <th>Name</th>
+            <th>Genre</th>
+            <th>Author</th>
+            <th>Year</th>
+            <th>Date</th>
+            <th>Action</th>
+        </thead>
+        <tbody>
+            {%  for i in books %}
+            <tr>
+                <td> {{ i.Name }} </td>
+                <td> {{i.Genre.Name}} </td>
+                <td> {{ i.Author.Name }} </td>
+                <td> {{ i.Year }} </td>
+                <td> {{ i.Date }} </td>
+                <td style="display: flex">
+                    <form action="delete_book" method="POST">{% csrf_token %}
+                        <button type="submit" name="id" value="{{i.Id}}" class="btn btn-warning" >Delete</button>
+                    </form>
+                    <form action="edit_book" method="GET">{% csrf_token %}
+                        <button type="submit" name="id" value="{{i.Id}}" style="margin-left: 20%" class="btn btn-info" >Edit</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+
+</div>
+<div  class="pagination row center-block">
+    <span  class="step-links">
+        <ul  class="pager">
+        {% if books.has_previous %}
+           <!-- <a href="?page={{ books.previous_page_number }}">previous</a>-->
+            <li><a href="?page={{ books.previous_page_number }}">Previous</a></li>
+        {% endif %}
+
+        <span class="current">
+            Page {{ books.number }} of {{ books.paginator.num_pages }}
+        </span>
+
+        {% if books.has_next %}
+            <li><a href="?page={{ books.next_page_number }}">Next</a></li>
+            <!--<a href="?page={{ books.next_page_number }}">next</a>-->
+        {% endif %}
+            </ul>
+    </span>
+</div>
+{% endblock %}

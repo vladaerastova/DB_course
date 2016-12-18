@@ -1,0 +1,74 @@
+
+{% extends 'rent/base.html' %}
+{% block content %}
+<div class="container">
+
+<form action={{ request.get_full_path }}>{% csrf_token %}
+    <div class="form-group" width = "500">
+        <label for="customer" class="label" style="color: black; font-size:120%" >Search:</label>
+        <select  class="turnintodropdown" style="width: 200px;height: 30px; border-radius: 5px;margin-top: 4px" id="customer" name="person_id">
+            {% for person in persons %}
+                <option value="{{person.Id}}">{{ person.Name }}</option>
+            {% endfor %}
+        </select>
+        <select  class="turnintodropdown" style="width: 200px;height: 30px; border-radius: 5px;margin-top: 4px" id="car" name="car_id">
+            {% for car in cars %}
+                <option value="{{car.Id}}">{{car.Firm}} {{car.Name}}</option>
+            {% endfor %}
+        </select>
+        <button style="border-radius: 5px" type="submit" class="button3">Search</button>
+    </div>
+<div>
+
+</div>
+</form>
+{% if msgs %}
+
+    <div>
+
+    <br> Found: <b>{{ total }}</b> records<br>
+        <br><strong>Searched</strong> <b>{{ status }}</b>
+            <br> Search time: {{ msgs }} sec
+
+    </div>
+    {% else %}
+    <div>
+     <br> Found : <b>{{ total }} </b>records</b>
+    </div>
+
+{% endif %}
+<br>
+<div class="row">
+      <table class="table table-hover table-bordered table-responsive">
+        <caption>
+            <h3>Rents</h3>
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        </caption>
+        <thead>
+            <th>PIB</th>
+            <th>Firm</th>
+            <th>Model</th>
+            <th>Price/day</th>
+            <th>Date take</th>
+            <th>Date back</th>
+        </thead>
+        <tbody>
+            {%  for i in list %}
+            <tr>
+                <td> {{ i.Person.Name }} </td>
+                <td> {{ i.Car.Firm }} </td>
+                <td> {{ i.Car.Name }} </td>
+                <td> {{ i.Car.Cost }} </td>
+                <td> {{ i.Date_Take }} </td>
+                <td> {{ i.Date_Back }} </td>
+                    </form>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+
+</div>
+</div>
+
+{% endblock %}

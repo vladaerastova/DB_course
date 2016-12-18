@@ -1,0 +1,41 @@
+{% extends 'library/admin_base.html' %}
+{% block content %}
+
+<div id="add" style=""  class="container">
+    <h2>Add Book</h2>
+    <form action="add_book" method="POST" class="form-inline" style="height: auto;" enctype="multipart/form-data">{% csrf_token %}
+        <div style="text-align: right; margin-right: -10px;margin-left: 10px; margin-top: 10px" class="col-md-4 add" >
+            <label for="authorid" style="font-size: 18px; margin-top: 4px; ">Author:</label><br>
+            <label for="genre" style="font-size: 18px; margin-top: 4px; ">Genre:</label><br>
+            <label for="name" style="font-size: 18px; margin-top: 4px">Name:</label><br>
+            <label for="year" style="font-size: 18px; margin-top: 4px">Year:</label><br>
+            <label for="description" style="font-size: 18px; margin-top: 4px" >Description:</label>
+            <label for="img" style="font-size: 18px; margin-top: 4px">Book image:</label>
+            <label for="text" style="text-align:right;font-size: 18px; margin-top: 28px">Book pdf:</label>
+        </div>
+        <div style="text-align: left; margin-left: 20px; margin-top: 10px"class="col-md-5">
+            <select id="authorid" name="author_id" style="width: 200px;height: 30px; border-radius: 5px">
+                {%  for author in authors %}
+                <option value="{{author.Id}}" >{{author.Name}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div style="text-align: left; margin-left: 20px; margin-top: 10px"class="col-md-5">
+            <select id="genre" name="genre" style="width: 200px;height: 30px; border-radius: 5px">
+                {%  for genre in genres %}
+                <option value="{{genre.Id}}" >{{genre.Name}}</option>
+                {% endfor %}
+            </select>
+            <br>
+            <input required id="name" type="text"  name="name" style="width: 200px;height: 30px; border-radius: 5px;margin-top: 4px"><br>
+            <input required id="year" type="number"  name="year" style="width: 200px;height: 30px; border-radius: 5px;margin-top: 4px"><br>
+            <textarea required id="description" name="description" style="width: 200px;height: 30px; border-radius: 5px;margin-top: 4px"></textarea><br/>
+            <input id="img" type="file" name="img" style="width: 300px;height: 30px; border-radius: 5px;margin-top: 4px"><br/>
+            <input id="text" type="file" name="text" style="width: 300px;height: 30px; border-radius: 5px;margin-top: 4px"><br/>
+        </div>
+        <div class="col-md-9" style="margin-top: 18px">
+            <button style="margin-left: 100%; margin-bottom: 10%" type="submit" class="btn btn-success">Add</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

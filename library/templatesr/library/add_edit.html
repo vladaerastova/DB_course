@@ -1,0 +1,115 @@
+
+{% extends 'rent/base.html' %}
+{% block content %}
+<div class="container">
+
+<div class="row">
+      <table class="table table-hover table-bordered table-responsive">
+        <caption>
+            <h3>Rents</h3>
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        </caption>
+        <thead>
+            <th>№</th>
+            <th>PIB</th>
+            <th>Firm</th>
+            <th>Model</th>
+            <th>Price/day</th>
+            <th>Date take</th>
+            <th>Date back</th>
+            <th>Action</th>
+        </thead>
+        <tbody>
+            {%  for i in response.rents %}
+            <tr>
+                <td> {{ i.id }} </td>
+                <td> {{ i.person.name }} </td>
+                <td> {{ i.car.firm }} </td>
+                <td> {{ i.car.name }} </td>
+                <td> {{ i.car.cost }} </td>
+                <td> {{ i.date_take }} </td>
+                <td> {{ i.date_back }} </td>
+                <td style="display: flex">
+                    <form action="delete_rent" method="POST">{% csrf_token %}
+                        <button type="submit" name="id" value="{{i.id}}" class="btn btn-default" >Delete</button>
+                    </form>
+                    <form action="/" method="POST">{% csrf_token %}
+                        <button type="submit" name="id" value="{{i.id}}" style="margin-left: 20%" class="btn btn-default" >Edit</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+
+</div>
+<div class="container">
+    <div class="col-md-12">
+    <div class="col-md-6">
+        <h2>Add car rent</h2>
+        <form action="add_rent" method="POST" class="form-inline" style="height: auto;">{% csrf_token %}
+            <div class="col-md-4" >
+              <label for="nameid" style="font-size: 18px; margin-top: 4px">Person:</label><br>
+              <label for="carname" style="font-size: 18px; margin-top: 4px">Car:</label><br>
+              <label for="datetake" style="font-size: 18px; margin-top: 4px">Date take:</label><br>
+                <label for="dateback" style="font-size: 18px; margin-top: 4px">Date back:</label><br>
+            </div>
+            <div class="col-md-8">
+
+            <select id="nameid" name="person_name" style="width: 200px;height: 30px; border-radius: 5px">
+              {%  for person in response.persons %}
+              <option value="{{person.id}}" >{{person.name}}</option>
+              {% endfor %}
+            </select>
+            <br>
+
+            <select id="carname" name="car_name" style="width: 200px;height: 30px; border-radius: 5px">
+              {%  for car in response.cars %}
+              <option value="{{car.id}}" >{{car.name}},{{car.firm}}</option>
+              {% endfor %}
+            </select>
+                <br>
+                <input id="datetake" type="date"  name="date_take" style="width: 200px;height: 30px; border-radius: 5px;margin-top: 4px"><br>
+                <input id="dateback" type="date"  name="date_back" style="width: 200px;height: 30px; border-radius: 5px;margin-top: 4px"><br>
+            </div>
+            <div class="col-md-12" style="margin-top: 14px">
+                <button style="margin-left: 70%" type="submit" class="btn btn-default">Add</button>
+            </div>
+        </form>
+    </div>
+        <div class="col-md-6">
+        <h2>Edit</h2>
+        <form action="edit_rent" method="POST" class="form-inline" style="height: auto;">{% csrf_token %}
+            <div class="col-md-4" >
+              <label for="personid" style="font-size: 18px; margin-top: 4px">Person:</label><br>
+              <label for="carid" style="font-size: 18px; margin-top: 4px">Car:</label><br>
+                <label for="datetake1" style="font-size: 18px; margin-top: 4px">Date take:</label><br>
+                <label for="dateback1" style="font-size: 18px; margin-top: 4px">Date back:</label><br>
+          </div>
+          <div class="col-md-8">
+               <select id="personid" name="person_id" style="width: 200px;height: 30px; border-radius: 5px;margin-top: 4px">
+                   <option selected value="{{response.edit_rent.person.id}}">{{response.edit_rent.person.name}}</option>
+                  {%  for person in response.persons1 %}
+                  <option  value="{{person.id}}" >{{person.name}}</option>
+                  {% endfor %}
+                </select>
+              <select id="carid" name="car_id" style="width: 200px;height: 30px; border-radius: 5px;margin-top: 4px">
+                  <option selected value="{{response.edit_rent.car.id}}">{{response.edit_rent.car.name}}</option>
+                  {%  for car in response.cars1 %}
+                  <option value="{{ car.id }}" >{{car.name}},{{car.firm}}</option>
+                  {% endfor %}
+                </select>
+              <br>
+              <input id="datetake1" type="date" value="{{response.edit_rent.date_take}}"  name="date_take" style="width: 200px;height: 30px; border-radius: 5px;margin-top: 4px"><br>
+                <input id="dateback1" type="date" value="{{response.edit_rent.date_back}}"  name="date_back" style="width: 200px;height: 30px; border-radius: 5px;margin-top: 4px"><br>
+          </div>
+            <div class="col-md-12" style="margin-top: 10px">
+                <button style="margin-left: 70%" name="id" value="{{response.id}}" type="submit" class="btn btn-default">Edit</button>
+            </div>
+        </form>
+    </div>
+
+    </div>
+</div>
+{% endblock %}

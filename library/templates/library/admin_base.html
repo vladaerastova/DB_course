@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+{% load filters %}
+<html lang="en">
+<head>
+
+  <title>E-library</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'css/library.css' %}">
+  <link rel="shortcut icon" href="static/favicon/favicon.ico"/>
+    <link href="https://fonts.googleapis.com/css?family=Lobster&subset=latin,cyrillic" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a onclick="active" id="lib" class="navbar-brand" href="#">E-LIBRARY</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class=""><a  href="admin">Home</a></li>
+        <li><a href="add_book">Add book</a></li>
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="statistics">Statistics <span class="caret"></span></a>
+        <ul class="dropdown-menu ">
+            <li ><a href="http://127.0.0.1:8000/statistics?day=1">Today</a></li>
+            <li><a href="http://127.0.0.1:8000/statistics?month=1">This month</a></li>
+            <li ><a href="http://127.0.0.1:8000/statistics?year=1">This year</a></li>
+        </ul>
+      </li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a><span class="glyphicon glyphicon-cog"></span> Admin panel</a></li>
+    </ul>
+  </div>
+</nav>
+<div class="container">
+     <div class="jumbotron" style="height: auto">
+     <!------------------------------------------------------------------------ -->
+        {% block content %}
+        {% endblock %}
+    </div>
+</div>

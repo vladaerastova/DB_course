@@ -1,0 +1,30 @@
+{% extends 'library/base.html' %}
+{% block content %}
+<div style="text-align:center; width:100%; margin-top:-50px;" class="w3-container w3-brown">
+    <h2>Sign up</h2>
+  </div>
+    {% if error_msg %}
+   	<div class="alert alert-danger">
+  		<strong>Error!</strong> {{ error_msg }}
+	</div>
+   {% endif %}
+<form id="q" action="reg" method="POST" class="form-horizontal" >{% csrf_token %}
+
+    <label for="name" class="w3-label  w3-text-brown">First Name</label>
+    <input required class="w3-input w3-border w3-sand " id="name" name="name" type="text" >
+    <label class="w3-label  w3-text-brown"><b>Last Name</b></label>
+    <input required class="w3-input w3-border w3-sand" name="surname" type="text">
+
+
+    <label class="w3-label  w3-text-brown"><b>E-mail</b></label>
+    <input required class="w3-input w3-border w3-sand " name="email" type="email" >
+
+    <label class="w3-label  w3-text-brown"><b>Login</b></label>
+    <input required class="w3-input w3-border w3-sand" name="login" type="text">
+
+
+    <label class="w3-label  w3-text-brown"><b>Password</b></label>
+    <input required class="w3-input w3-border w3-sand " name="password" type="password">
+    <p style="margin-top:7px;"><button style="border-radius:5px;" type="submit" class="w3-btn w3-brown">Create an account</button></p>
+  </form>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'rent/base.html' %}
+{% block content %}
+<div class="row" >
+  <div >
+      <table class="table table-hover table-bordered table-responsive">
+        <caption>
+            <h3>Cars</h3>
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        </caption>
+        <thead>
+        <th>№</th>
+        <th>Firm</th>
+        <th>Model</th>
+        <th>Motor</th>
+        <th>Price/day</th>
+        <th>Description</th>
+        </thead>
+        <tbody>
+            {%  for car in response.cars %}
+                <tr>
+                    <td> {{ car.id }} </td>
+                    <td> {{  car.firm }} </td>
+                    <td> {{  car.name }} </td>
+                    <td> {{  car.motor }} </td>
+                    <td> {{  car.cost }} </td>
+                    <td> {{  car.description }} </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+  </div>
+</div>
+<br>
+<br>
+
+{% endblock %}

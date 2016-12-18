@@ -1,0 +1,52 @@
+
+{% extends 'library/base.html' %}
+{% block content %}
+<div style="text-align:center; width:100%; margin-top:-50px;margin-bottom: 30px;" class="w3-container w3-brown">
+    <h2>Latest added books</h2>
+  </div>
+<div style="text-align:center" class="container">
+    {% for i in books %}
+    <div  class="col-md-5 book">
+        <div class="col-xs-4">
+        <img style="margin-top:20px;" src="{{i.Img}}" class="img-thumbnail" alt="Book cover"></div>
+        <div style="text-align: left;" class="col-xs-7">
+            <form action="book" style="margin-bottom:-25px;margin-top:30px;" method="POST">{% csrf_token %}
+            <a class="char" >Name: </a>
+                <button style="font-size:17px;margin-top:-3px;padding:0px;" type="submit" name="book" value="{{i.Id}}" class="btn btn-link" >{{i.Name}}</button>
+            </form><br>
+        <a class="char">Genre: </a><a>{{i.Genre.Name}}</a><br>
+        <a class="char">Author: </a><a>{{i.Author.Name}}</a><br>
+        <a class="char">Year: </a><a>{{i.Year}}</a><br>
+        <a class="char">Date: </a><a>{{i.Date}}</a><br>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+<div style="text-align:center; width:100%;margin-bottom: 30px;" class="w3-container w3-brown">
+    <h2>Most popular books</h2>
+  </div>
+<div style="text-align:center" class="container">
+    {% for i in booksp %}
+    <div  class="col-md-5 book">
+        <div class="col-xs-4">
+        <img style="margin-top:20px;" src="{{i.Img}}" class="img-thumbnail" alt="Book cover"></div>
+        <div style="text-align: left;" class="col-xs-7">
+            <form style="margin-bottom:-20px;margin-top:30px;" action="book" method="POST">{% csrf_token %}
+            <a class="char">Name: </a>
+                <button style="font-size:17px;margin-top:-3px;padding:0px;" type="submit" name="book" value="{{i.Id}}" class="btn btn-link" >{{i.Name}}</button>
+            </form><br>
+        <a class="char">Genre: </a><a>{{i.Genre.Name}}</a><br>
+        <a class="char">Author: </a><a>{{i.Author.Name}}</a><br>
+        <a class="char">Year: </a><a>{{i.Year}}</a><br>
+        <a class="char">Date: </a><a>{{i.Date}}</a><br>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+
+
+
+
+{% endblock %}

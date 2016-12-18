@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+{% load filters %}
+<html lang="en">
+<head>
+  <title>E-library</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="static/favicon/favicon.ico"/>
+    <link type="text/css" rel="stylesheet" href="static/css/library.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Lobster&subset=latin,cyrillic" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body class="w3-sand">
+
+<nav id="header" class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a id="lib1" class="navbar-brand" href="#">E-library</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li><a href="http://127.0.0.1:8000/">Home</a></li>
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Top100 <span class="caret"></span></a>
+        <ul class="dropdown-menu w3-sand">
+            <li ><a href="http://127.0.0.1:8000/top100?popularity=1">Popularity</a></li>
+            <li><a href="http://127.0.0.1:8000/top100?comments=1">Comments</a></li>
+            <li ><a href="http://127.0.0.1:8000/top100?date=1">Latest added</a></li>
+        </ul>
+      </li>
+      <li><a href="search">Search</a></li></ul>
+<ul class="nav navbar-nav navbar-right">
+      {% if user == None %}
+      <li><a href="http://127.0.0.1:8000/signup"><span class="glyphicon glyphicon-user"></span>
+          Sign Up</a></li>
+      <li><a href="http://127.0.0.1:8000/signin"><span class="glyphicon glyphicon-log-in"></span>
+          Sign in</a></li>
+      {% else%}
+        <li><a>Hello, {{user.name}}</a></li>
+      <li><a href="http://127.0.0.1:8000/logout"><span class="glyphicon glyphicon-log-out"></span>
+          Sign out</a></li>
+
+      {% endif%}
+    </ul>
+  </div>
+</nav>
+
+
+<div class="left">
+    <table class="table table-hover table-responsive">
+        <caption>
+            <h3 align="center">Genres</h3>
+        </caption>
+        <tbody>
+        {%  for i in genres %}
+        <tr>
+            <td style="text-align: left;"><form action="search" method="POST">{% csrf_token %}
+                        <button style="color:black;width:150px;margin-right:40%,text-align-center;" type="submit" name="genre" value="{{i.Id}}" class="btn btn-link btn-xs" >{{i.Name}}</button>
+                    </form> </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+        </table>
+</div>
+<div class="right">
+    <div class="jumbotron w3-sand" style="height: auto;width:98%;border-left:double;border-bottom:double;border-right:double;border-color:#20B2AA;">
+        {% block content %}
+        {% endblock %}
+        </div>
+</div>
+<div id="footer"></div>
+</body>
+</html>

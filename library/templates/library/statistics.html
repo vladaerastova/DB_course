@@ -1,0 +1,25 @@
+{% extends 'library/admin_base.html' %}
+{% block content %}
+{% load googlecharts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
+
+<canvas id="myChart"></canvas>
+<script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: {{date|safe }},
+    datasets: [{
+      label: 'Users activity',
+      data: {{data|safe }},
+      backgroundColor: "rgba(153,255,51,0.4)"
+    }, {
+      label: 'Using cache',
+      data: {{data1|safe }},
+      backgroundColor: "rgba(255,153,0,0.4)"
+    }]
+  }
+});
+</script>
+{%endblock%}

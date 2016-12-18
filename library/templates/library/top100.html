@@ -1,0 +1,43 @@
+{% extends 'library/base.html' %}
+{% block content %}
+
+<div style="text-align:center; width:100%; margin-top:-50px;" class="w3-container w3-brown">
+    <h2>{{title}}</h2>
+</div>
+<div style="text-align:center margin-top:10px" class="container">
+    {% for i in books %}
+    <div  class="col-md-5 book">
+        <div class="col-xs-4">
+        <img src="{{i.Img}}" class="img-thumbnail" alt="Book cover"></div>
+        <div style="text-align: left;" class="col-xs-7">
+            <form style="margin-bottom:-20px;margin-top:30px;" action="book" method="POST">{% csrf_token %}
+            <a class="char">Name: </a>
+                <button style="font-size:17px;margin-top:-3px;padding:0px;" type="submit" name="book" value="{{i.Id}}" class="btn btn-link" >{{i.Name}}</button>
+            </form><br>
+        <a class="char">Genre: </a><a>{{i.Genre.Name}}</a><br>
+        <a class="char">Author: </a><a>{{i.Author.Name}}</a><br>
+        <a class="char">Year: </a><a>{{i.Year}}</a><br>
+        <a class="char">Date: </a><a>{{i.Date}}</a><br>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+<div  class="pagination row center-block">
+    <span  class="step-links">
+        <ul  class="pager">
+        {% if books.has_previous %}
+            <li ><a href="?page={{ books.previous_page_number }}">Previous</a></li>
+        {% endif %}
+
+        <span class="current">
+            Page {{ books.number }} of {{ books.paginator.num_pages }}
+        </span>
+
+        {% if books.has_next %}
+           <li><a  href="?page={{ books.next_page_number }}">Next</a></li>
+        {% endif %}
+            </ul>
+    </span>
+</div>
+{% endblock %}

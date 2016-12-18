@@ -1,0 +1,36 @@
+{% extends 'rent/base.html' %}
+{% block content %}
+<div class="row" >
+  <div >
+      <table class="table table-hover table-bordered table-responsive">
+        <caption>
+            <h3>Persons</h3>
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        </caption>
+          <form action="/persons" method="POST" class="form-inline" style="height: auto;">{% csrf_token %}
+              <!--         <label for="name" style="font-size: 18px; margin-top: 10px">Search by names:  </label>
+          <input style="margin-left: 5%" id="name" type="text"  name="names">
+          <button style="margin-left: 5%" name="name" type="submit" class="btn btn-default">Search</button>-->
+          </form>
+        <thead>
+        <th>№</th>
+        <th>PIB</th>
+        <th>Passport</th>
+        </thead>
+        <tbody>
+            {%  for person in response.persons %}
+                <tr>
+                    <td> {{ person.id }} </td>
+                    <td> {{  person.name }} </td>
+                    <td> {{  person.passport }} </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+  </div>
+</div>
+<br>
+<br>
+
+{% endblock %}

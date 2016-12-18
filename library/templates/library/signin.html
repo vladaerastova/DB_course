@@ -1,0 +1,29 @@
+{% extends 'library/base.html' %}
+{% block content %}
+<div style="text-align:center; width:100%; margin-top:-50px;" class="w3-container w3-brown">
+    <h2>Sign in</h2>
+  </div>
+    {% if error_msg %}
+   	<div class="alert alert-danger">
+  		<strong>Error!</strong> {{ error_msg }}
+	</div>
+   {% endif %}
+
+<form action="check_user" method="POST" class="form-inline" style="height: auto;">{% csrf_token %}
+  <div style="margin-top:20px;" align="center" class="container">
+  <div class="input-group col-xs-2">
+    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+    <input required id="email" type="text" class="form-control" name="email" placeholder="Login">
+  </div>
+  <div class="input-group col-xs-2">
+    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+    <input required id="password" type="password" class="form-control" name="password" placeholder="Password">
+  </div>
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button style="border-radius:5px;" type="submit" class="w3-btn w3-brown">Sign in</button>
+      </div>
+    </div>
+</div>
+</form>
+{% endblock %}
